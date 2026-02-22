@@ -1,2 +1,9 @@
-<img width="1862" height="884" alt="image" src="https://github.com/user-attachments/assets/9468fcbb-bd87-496e-898f-cc37de6f8523" />
 
+
+Experiment-1
+Common Source amplifier analysis
+
+
+This experiment shows the ac,dc and transient analysis of cs amplifier
+
+Abstract
