@@ -272,7 +272,9 @@ $$
 $$
 V_{pp} \approx 186.9\,mV
 $$
-
+<p align="center">
+  <img width="900" alt="CS Amplifier Waveform" src="https://github.com/user-attachments/assets/e0a972c0-2d82-43cf-a359-8af357aff0d9">
+</p>
 ---
 ## Voltage Gain Calculation
 
@@ -317,3 +319,92 @@ $$
 The gain is negative because the Common Source amplifier inverts the signal.  
 When the input voltage increases, the drain current increases, causing a larger voltage drop across $R_D$, which reduces the output voltage.  
 Thus, the output is 180° out of phase with the input.
+# DC Sweep Analysis – Common Source Amplifier
+
+---
+
+## Objective
+
+To analyze the DC transfer characteristics of the Common Source (CS) amplifier by sweeping the input voltage and observing the variation in output voltage.
+
+---
+
+## Simulation Setup
+
+- Supply Voltage: $V_{DD} = 1.2\,V$
+- Sweep Variable: $V_{in}$
+- Sweep Range: 0 V to 1.2 V
+- Output Node: $V_{out}$
+
+SPICE Command used:
+
+```
+.dc Vin 0 1.2 0.01
+```
+
+---
+
+## DC Sweep Plot
+
+<p align="center">
+  ## DC Sweep Plot (Vout vs Vin)
+
+<img width="1885" height="393" alt="image" src="https://github.com/user-attachments/assets/5b6a55fe-0f57-48ba-9a10-0a8a106a1eed" />
+
+
+**Fig:** DC transfer characteristic of the Common Source amplifier showing $V_{out}$ versus $V_{in}$.
+
+**Fig 1:** DC transfer characteristic of the CS amplifier ($V_{out}$ vs $V_{in}$).
+
+---
+
+## Finding $V_{GS}$ (Bias Point Selection)
+
+For maximum symmetrical output swing, the drain voltage is chosen as:
+
+$$
+V_D = \frac{V_{DD}}{2}
+$$
+
+Since:
+
+$$
+V_{DD} = 1.2\,V
+$$
+
+$$
+V_D = \frac{1.2}{2}
+$$
+
+$$
+V_D = 0.6\,V
+$$
+
+In a Common Source amplifier, the source is grounded, so:
+
+$$
+V_{GS} = V_G - V_S
+$$
+
+Since $V_S = 0$,
+
+$$
+V_{GS} = V_{in}
+$$
+
+Therefore, the required $V_{GS}$ is obtained from the DC sweep graph at the point where:
+
+$$
+V_{out} \approx 0.6\,V
+$$
+
+From the DC curve, this occurs approximately at:
+
+$$
+V_{GS} \approx 0.5\,V \text{ (approximately from graph)}
+$$
+
+This value becomes the **DC bias voltage** for proper operation in the saturation region.
+
+---
+
