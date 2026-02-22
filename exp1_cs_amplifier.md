@@ -142,3 +142,37 @@ P = VDD × ID
 P = 1.2 × 0.339 mA  
 
 P = 0.4068 mW
+
+# Transient Analysis of Common Source (CS) Amplifier
+
+## Introduction
+
+Transient analysis is performed to study the time-domain behavior of the Common Source (CS) amplifier. It shows how the output voltage changes with respect to time when an input signal is applied.
+
+## Purpose of Transient Analysis
+
+The main objectives are:
+
+- To observe signal amplification over time
+- To verify phase inversion (180° phase shift)
+- To measure voltage gain from input and output waveforms
+- To check signal distortion and stability
+
+
+
+
+## Voltage Gain Measurement
+
+Voltage gain is calculated using peak values:
+
+$$
+A_v = \frac{V_{out}}{V_{in}}
+$$
+
+Since the CS amplifier inverts the signal:
+
+$$
+A_v = - \frac{V_{out}}{V_{in}}
+$$
+<img width="1444" height="706" alt="image" src="https://github.com/user-attachments/assets/81bb4054-4f3e-4d0f-896e-c1d5a4c78de6" />
+
