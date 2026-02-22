@@ -175,4 +175,145 @@ $$
 A_v = - \frac{V_{out}}{V_{in}}
 $$
 <img width="1444" height="706" alt="image" src="https://github.com/user-attachments/assets/81bb4054-4f3e-4d0f-896e-c1d5a4c78de6" />
+<p align="center">
+   
+  <img width="800" alt="Transient Analysis Output" src="https://github.com/user-attachments/assets/81bb4054-4f3e-4d0f-896e-c1d5a4c78de6">
+</p>
+<p align="center">
+# Transient Analysis – Common Source Amplifier
 
+---
+
+## 1. Input Waveform (V_in)
+
+<p align="center">
+  <img width="900" alt="Input Waveform V(in)" src="https://github.com/user-attachments/assets/8d3a9caf-73c1-4026-804d-87cf406049fd">
+</p>
+
+**Fig 1:** Transient response of input signal $V_{in}$.
+
+### Measured Input Values
+
+| Parameter | Value | Unit |
+|------------|--------|------|
+| DC Offset | 0.9 | V |
+| Peak Voltage | 0.9496 | V |
+| Minimum Voltage | 0.85 | V |
+| Input Amplitude | 50 | mV |
+| Frequency | 1 | kHz |
+
+---
+
+---
+# Transient Analysis – Common Source Amplifier
+
+---
+
+## 1. Input Waveform (V_in)
+<img width="1899" height="816" alt="image" src="https://github.com/user-attachments/assets/8f00d64f-1634-4327-abf5-ef728ea4d68e" />
+
+
+<p align="center">
+  
+
+**Fig 1:** Transient response of input signal $V_{in}$.
+
+---
+
+## Measured Input Values (From Cursor)
+
+| Parameter | Value | Unit |
+|------------|--------|------|
+| DC Offset | 0.9 | V |
+| Peak Voltage | 0.9495 | V |
+| Minimum Voltage | 0.85 | V |
+| Input Amplitude | 50 | mV |
+| Frequency | 1 | kHz |
+| Cursor Time | 4.2414 | ms |
+| Cursor Voltage | 949.51 | mV |
+
+---
+
+---
+
+## 2. Output Waveform (V_out)
+
+<p align="center">
+  <img width="1916" height="1002" alt="image" src="https://github.com/user-attachments/assets/dc13583f-e57d-450d-9f74-5ca44b1c8aa3" />
+
+</p>
+
+**Fig 2:** Transient response of output signal $V_{out}$.
+
+---
+
+## Measured Output Values (From Cursor)
+
+| Parameter | Value | Unit |
+|------------|--------|------|
+| Peak Voltage | 684.887 | mV |
+| Minimum Voltage | 497.988 | mV |
+| DC Level | 0.5897 | V |
+| Peak-to-Peak Voltage | 186.9 | mV |
+| Output Amplitude | 93.45 | mV |
+
+---
+
+## Peak-to-Peak Calculation
+
+$$
+V_{pp} = V_{max} - V_{min}
+$$
+
+$$
+V_{pp} = 684.887\,mV - 497.988\,mV
+$$
+
+$$
+V_{pp} \approx 186.9\,mV
+$$
+
+---
+## Voltage Gain Calculation
+
+Input peak-to-peak voltage:
+
+$$
+V_{in(pp)} = 0.9495 - 0.85
+$$
+
+$$
+V_{in(pp)} = 99.5\,mV
+$$
+
+Output peak-to-peak voltage:
+
+$$
+V_{out(pp)} = 186.9\,mV
+$$
+
+Voltage gain:
+
+$$
+A_v = \frac{V_{out(pp)}}{V_{in(pp)}}
+$$
+
+$$
+A_v = \frac{186.9}{99.5}
+$$
+
+$$
+A_v \approx 1.88
+$$
+
+Since the Common Source amplifier produces phase inversion:
+
+$$
+A_v \approx -1.88
+$$
+
+### Reason for Negative Gain
+
+The gain is negative because the Common Source amplifier inverts the signal.  
+When the input voltage increases, the drain current increases, causing a larger voltage drop across $R_D$, which reduces the output voltage.  
+Thus, the output is 180° out of phase with the input.
