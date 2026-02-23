@@ -407,4 +407,39 @@ $$
 This value becomes the **DC bias voltage** for proper operation in the saturation region.
 
 ---
+## AC Analysis
+<img width="1898" height="409" alt="image" src="https://github.com/user-attachments/assets/d7dcf0c8-13f3-4ded-9d9a-019b9e1291e8" />
 
+
+AC analysis is used to determine the frequency response of the amplifier.
+
+### Midband Gain
+<img width="1912" height="854" alt="image" src="https://github.com/user-attachments/assets/6372f682-a7a3-47b4-b9bb-bdc0a3573a75" />
+
+$$
+A_v \approx 5.4\,dB
+$$
+
+### Half-Power (-3 dB) Frequency
+
+$$
+5.4 - 3 = 2.4\,dB
+$$
+
+From the graph, gain reaches 2.4 dB at approximately:
+
+$$
+f_H \approx 50\,GHz
+$$
+
+### Bandwidth
+
+Since no low-frequency cutoff is observed:
+
+$$
+BW = f_H
+$$
+
+$$
+BW \approx 50\,GHz
+$$
