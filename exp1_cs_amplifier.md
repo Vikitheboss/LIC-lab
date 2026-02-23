@@ -412,6 +412,13 @@ This value becomes the **DC bias voltage** for proper operation in the saturatio
 
 
 AC analysis is used to determine the frequency response of the amplifier.
+To get the proper bandwidth we need to add a capacitor of 1FF because>
+### Why 1 fF Capacitor is Added
+
+A 1 fF capacitor is added at the output to model load and parasitic capacitances. 
+It creates a dominant pole at the output node, which limits the high-frequency gain and defines a practical -3 dB bandwidth.
+
+Without the capacitor, the bandwidth appears unrealistically large.
 
 ### Midband Gain
 <img width="1912" height="854" alt="image" src="https://github.com/user-attachments/assets/6372f682-a7a3-47b4-b9bb-bdc0a3573a75" />
