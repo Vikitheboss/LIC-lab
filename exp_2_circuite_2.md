@@ -362,3 +362,172 @@ This deviation occurs due to:
 - The DC analysis validates the theoretical calculations.
 
 The circuit biasing is accurate and stable.
+
+
+
+
+
+# Transient Analysis
+
+---
+<img width="1910" height="834" alt="image" src="https://github.com/user-attachments/assets/5bf0f754-7376-472b-a3e4-c6f08002bbd5" />
+
+## 1. Simulation Setup
+
+| Parameter | Value |
+|------------|--------|
+| Analysis Type | Transient (.tran 5m) |
+| Input Signal | SINE(0.9166667 10m 1k) |
+| DC Offset | 0.9167 V |
+| Amplitude | 10 mV |
+| Frequency | 1 kHz |
+
+---
+
+## 2. Input Voltage (Vin)
+
+From waveform:
+<img width="1908" height="850" alt="image" src="https://github.com/user-attachments/assets/a5721525-b6b9-40a8-85e5-ceb9107fddae" />
+
+
+| Parameter | Value |
+|------------|--------|
+| Vin_max | 926 mV |
+| Vin_min | 906 mV |
+
+Peak-to-peak input voltage:
+
+Vpp_in = 926 mV − 906 mV  
+Vpp_in = 20 mV
+
+---
+
+## 3. Output Voltage (Vout)
+
+From waveform:
+
+<img width="1916" height="867" alt="image" src="https://github.com/user-attachments/assets/20ec0467-1a1c-4ce2-9d47-f57f6b4848ba" />
+
+| Parameter | Value |
+|------------|--------|
+| Vout_max | 1.066 V |
+| Vout_min | 1.034 V |
+
+Peak-to-peak output voltage:
+
+Vpp_out = 1.066 V − 1.034 V  
+Vpp_out = 0.032 V  
+Vpp_out = 32 mV
+
+---
+
+## 4. Voltage Gain (Av)
+<img width="1911" height="850" alt="image" src="https://github.com/user-attachments/assets/a3ce79b0-24cf-4793-b78f-003a6614c673" />
+
+Voltage gain:
+
+Av = Vpp_out / Vpp_in  
+Av = 32 mV / 20 mV  
+Av = 1.6
+
+Since the output is inverted:
+
+Av ≈ −1.6  
+
+Magnitude of gain:
+
+|Av| = 1.6
+
+---
+
+## 5. Gain in Decibels (dB)
+
+Gain_dB = 20 log10(|Av|)
+
+Gain_dB = 20 log10(1.6)
+
+Gain_dB ≈ 4.08 dB
+
+---
+
+## 6. Conclusion
+
+- Input peak-to-peak voltage: 20 mV  
+- Output peak-to-peak voltage: 32 mV  
+- Voltage gain: −1.6  
+- Gain in dB: 4.08 dB  
+
+The circuit shows small-signal amplification without distortion or clipping.
+
+
+
+
+# AC Analysis
+
+---
+
+## 1. Midband Gain (From Graph)
+<img width="1874" height="827" alt="image" src="https://github.com/user-attachments/assets/e8b24670-182d-439b-b992-9fb51e7ee21e" />
+
+
+From cursor:
+
+Frequency = 7.071 MHz  
+Gain = 4.324 dB  
+Phase = 178.276°
+
+---
+
+## 2. Convert Gain from dB to Linear
+
+Av = 10^(Gain_dB / 20)
+
+Av = 10^(4.324 / 20)
+
+Av = 10^(0.2162)
+
+Av = 1.64
+
+Since phase ≈ 180°, amplifier is inverting:
+
+Av ≈ −1.64
+
+---
+
+## 3. -3 dB Bandwidth Calculation
+<img width="1895" height="833" alt="image" src="https://github.com/user-attachments/assets/b2f34b69-f3ae-4722-93cf-812f6f27c063" />
+
+
+Midband gain = 4.324 dB
+
+-3 dB level:
+
+4.324 − 3 = 1.324 dB
+
+From graph:
+
+Frequency at ≈ 1.324 dB ≈ 127 MHz
+
+Upper cutoff frequency:
+
+fH ≈ 127 MHz
+
+Lower cutoff frequency:
+
+Flat response down to 100 Hz
+
+Therefore:
+
+fL < 100 Hz
+
+---
+
+## 4. Final Calculated Values
+
+| Parameter | Value |
+|------------|--------|
+| Midband Gain (dB) | 4.324 dB |
+| Midband Gain (Linear) | 1.64 |
+| Voltage Gain (Av) | −1.64 |
+| Upper Cutoff Frequency (fH) | ~127 MHz |
+| Lower Cutoff Frequency (fL) | < 100 Hz |
