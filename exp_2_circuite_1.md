@@ -1356,3 +1356,69 @@ The circuit demonstrates
 The simulation results confirm the expected behavior of the common source amplifier configuration.
 
 ---ehavior of a CMOS common source amplifier.
+
+
+
+
+
+---
+
+# RESULTS
+
+## Circuit 1
+
+The MOSFET amplifier circuit was successfully simulated and the operating point was obtained. The drain current (ID), output voltage (Vout), and small-signal parameters such as transconductance (gm) and output resistance (ro) were calculated.  
+
+The voltage gain obtained from the theoretical calculation was found to be close to the gain observed in the simulation.
+
+The biasing conditions ensured that the MOSFET operated in the **saturation region**, which is required for proper amplification. Minor differences between theoretical and simulation values were observed due to approximations used in device parameters.
+
+---
+
+## Circuit 2
+
+The second circuit was designed to analyze the small signal amplification with different biasing conditions. Parameters such as **overdrive voltage (Vov), transconductance (gm), and voltage gain (Av)** were calculated theoretically.
+
+The simulation results confirmed that the MOSFET operated in the saturation region and produced the expected amplified output. The gain obtained from simulation was reasonably close to the theoretical value.
+
+---
+
+## Circuit 3
+
+The third circuit was implemented to study the effect of circuit configuration on the amplifier gain and output characteristics.
+
+The MOSFET parameters were extracted and used to compute the expected voltage gain. Simulation results showed that the amplifier produced a stable output with proper biasing. The measured gain from simulation closely matched the calculated theoretical gain.
+
+---
+
+# COMPARISON OF RESULTS
+
+| Circuit | Theoretical Gain | Simulation Gain | Observation |
+|--------|-----------------|----------------|-------------|
+| Circuit 1 | Calculated using gm and ro | Obtained from simulation | Values are closely matching |
+| Circuit 2 | Derived using small signal model | Observed from simulation | Slight variation due to modeling assumptions |
+| Circuit 3 | Computed from circuit parameters | Measured from output waveform | Good agreement |
+
+**Observation:**  
+The theoretical and simulation values are in close agreement. Small deviations occur due to ideal assumptions in theoretical analysis and internal device modeling in simulation.
+
+---
+
+# CONCLUSION
+
+The MOSFET amplifier circuits were successfully designed and analyzed. Proper DC biasing ensured that the MOSFET operated in the **saturation region**, enabling effective signal amplification.
+
+Small signal parameters such as **transconductance (gm), output resistance (ro), and voltage gain (Av)** were calculated theoretically and verified using simulation results.
+
+The comparison between theoretical and simulation values shows good agreement, validating the theoretical analysis of MOSFET amplifier circuits.
+
+---
+
+# INFERENCE
+
+1. Proper **DC biasing** is essential for stable MOSFET amplifier operation.
+2. The **voltage gain depends mainly on transconductance (gm) and output resistance (ro)**.
+3. Theoretical analysis provides a close approximation of circuit performance.
+4. Minor deviations between theoretical and simulation values occur due to **device modeling and parameter approximations**.
+
+---
