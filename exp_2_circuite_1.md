@@ -1084,3 +1084,275 @@ fL < 100 Hz
 | Upper Cutoff Frequency (fH) | ~127 MHz |
 | Lower Cutoff Frequency (fL) | < 100 Hz |
 
+
+
+# EXPERIMENT 2 – CIRCUIT 3
+
+# EXPERIMENT 2 – CIRCUIT 3  
+Common Source Amplifier with PMOS Active Load
+
+---
+
+# Circuit Diagram
+
+<img width="1918" height="895" alt="Circuit Diagram" src="https://github.com/user-attachments/assets/169c1d12-68d8-4457-b680-9b0f0d0c3642" />
+
+---
+
+# Supply Voltages
+
+| Source | Value |
+|------|------|
+| VDD (V1) | 1.5 V |
+| Bias Voltage (V2) | 1.5 V |
+| PMOS Gate Bias (V5) | 0.86 V |
+| Input Source (V3) | SINE(1.23 10m 1k) |
+
+Input signal parameters  
+
+Amplitude = 10 mV  
+Frequency = 1 kHz  
+DC offset = 1.23 V  
+
+---
+
+# MOSFET Parameters
+
+| Transistor | Type | Width | Length |
+|-----------|------|------|------|
+| M1 | NMOS | 27.47 µm | 180 nm |
+| M2 | PMOS | 58.1 µm | 180 nm |
+| M3 | NMOS | 18.27 µm | 180 nm |
+
+Technology used  
+TSMC 180 nm CMOS model
+
+---
+
+# DC Operating Point
+
+From LTspice operating point analysis
+
+<img width="718" height="624" alt="Operating Point" src="https://github.com/user-attachments/assets/5799e644-e582-45c7-b074-eee40ab17ad8" />
+
+| Parameter | Value |
+|---------|--------|
+| Vin | 1.23 V |
+| Vout | 1.06024 V |
+| Vrs | 0.619974 V |
+| Id(M1) | 300.6 µA |
+| Id(M2) | -300.6 µA |
+| Id(M3) | 300.6 µA |
+
+Observation  
+
+The current flowing through M1, M2 and M3 is approximately equal, confirming correct biasing and stable operating point.
+
+---
+
+# Calculations
+
+## Drain Current
+
+From LTspice operating point
+
+Id(M1) = 0.000300601 A  
+
+Therefore
+
+Id ≈ 300 µA
+
+---
+
+## Overdrive Voltage
+
+Overdrive voltage
+
+Vov = VGS − VTH
+
+Given
+
+Vov = 0.25 V
+
+---
+
+## Transconductance
+
+Transconductance of MOSFET
+
+gm = 2Id / Vov
+
+gm = (2 × 300 µA) / 0.25
+
+gm = 600 µA / 0.25
+
+gm = 0.0024 S
+
+gm = **2.4 mS**
+
+---
+
+## Output Resistance
+
+Output resistance of MOSFET
+
+ro = 1 / (λ Id)
+
+Given
+
+λ = 0.1  
+Id = 300 µA
+
+ro = 1 / (0.1 × 300 × 10⁻⁶)
+
+ro = 1 / (3 × 10⁻⁵)
+
+ro ≈ **33333 Ω**
+
+ro ≈ **33.3 kΩ**
+
+Since the same current flows through all MOSFETs
+
+ro1 ≈ ro2 ≈ ro3 ≈ **33.3 kΩ**
+
+---
+
+## Theoretical Voltage Gain
+
+For the given circuit the gain is
+
+Av ≈ − gm1 ro2 / (1 + gm3 ro3)
+
+Substituting values
+
+gm1 = gm3 = 2.4 mS  
+ro2 = ro3 = 33.3 kΩ
+
+First calculate
+
+gm3 ro3
+
+= 2.4 × 10⁻³ × 33333
+
+≈ 80
+
+Denominator
+
+1 + 80 = 81
+
+Now numerator
+
+gm1 ro2
+
+= 2.4 × 10⁻³ × 33333
+
+≈ 80
+
+Therefore
+
+Av ≈ −80 / 81
+
+Av ≈ **−0.99**
+
+---
+
+## Gain from AC Simulation
+
+From AC frequency response
+
+Gain ≈ **23 dB**
+
+Voltage gain
+
+Av = 10^(Gain / 20)
+
+Av = 10^(23 / 20)
+
+Av ≈ **14.1**
+
+---
+
+# Transient Analysis
+
+Transient simulation command
+
+```
+.tran 10m
+```
+
+---
+
+## Output Waveform
+
+<img width="1904" height="424" alt="Vout waveform" src="https://github.com/user-attachments/assets/f2c73550-af6c-432f-90de-a515e737e046" />
+
+Observation  
+
+The output signal is amplified and inverted compared to the input signal.
+
+---
+
+## Input Waveform
+
+<img width="1904" height="410" alt="Vin waveform" src="https://github.com/user-attachments/assets/2ea8933e-920d-4692-ae3b-9f430768662b" />
+
+Observation  
+
+The input signal is a sinusoidal waveform with small amplitude of 10 mV.
+
+---
+
+# AC Analysis
+
+AC analysis command
+
+```
+.ac dec 1000 100 100G
+```
+
+---
+
+## Frequency Response
+
+<img width="1894" height="452" alt="AC response" src="https://github.com/user-attachments/assets/3c1b0f5a-bbe0-4a27-bfcb-a9815f37cd59" />
+
+Observation  
+
+The amplifier provides high gain in the low and mid frequency region and decreases at higher frequencies due to parasitic capacitances.
+
+---
+
+# DC Sweep Analysis
+
+DC sweep command
+
+```
+.dc V3 0 1.5 0.0001
+```
+
+---
+
+## DC Transfer Characteristic
+
+<img width="1894" height="404" alt="DC sweep" src="https://github.com/user-attachments/assets/d9336648-78e4-43ed-bfb5-ba178df32e79" />
+
+Observation  
+
+The graph shows the relationship between input voltage and output voltage.
+
+---
+
+# Result
+
+A CMOS common source amplifier with PMOS active load was designed and simulated using TSMC 180 nm technology.
+
+The circuit demonstrates
+
+• Proper MOSFET biasing  
+• Amplification of small input signals  
+• Phase inversion between input and output  
+• Frequency response characteristics of CMOS amplifiers  
+
+The simulation results confirm the expected behavior of the common source amplifier configuration.
+
+---ehavior of a CMOS common source amplifier.
