@@ -81,6 +81,37 @@ For proper operation:
 
 V_CM(min) ≤ V_CM ≤ V_CM(max)
 
+
+
+
+## GIVEN DESIGN PARAMETERS
+
+- Channel Length (L) = 480 nm  
+- Power (P) ≤ 1.8 mW  
+
+---
+
+## SUPPLY AND INPUT CONDITIONS
+
+- VDD = 0.9 V  
+- VSS = -0.9 V  
+- VinCM = 0 V  
+- Vocm = 0 V  
+- Vp = -0.7 V  
+
+---
+
+## ADDITIONAL PARAMETER
+
+- Load Capacitance (CL) = 10 pF  
+
+---
+
+## REFERENCE
+
+Extracted from Experiment 04 lab sheet  
+:contentReference[oaicite:0]{index=0}
+
 This ensures all transistors operate in saturation and the amplifier works correctly.
 
 ---
