@@ -106,13 +106,174 @@ V_CM(min) ≤ V_CM ≤ V_CM(max)
 - Load Capacitance (CL) = 10 pF  
 
 ---
+## CIRCUIT DIAGRAM
+<img width="1226" height="722" alt="image" src="https://github.com/user-attachments/assets/29a55b59-4743-4bc6-ba78-4a5d19f5edab" />
 
-## REFERENCE
 
-Extracted from Experiment 04 lab sheet  
-:contentReference[oaicite:0]{index=0}
 
-This ensures all transistors operate in saturation and the amplifier works correctly.
+
+# DC ANALYSIS (OPERATING POINT)
+
+<img width="885" height="616" alt="image" src="https://github.com/user-attachments/assets/cb702078-94ce-49be-93dd-434e991338d7" />
+
 
 ---
+
+## NODE VOLTAGES
+
+| Node      | Voltage (V)        |
+|----------|-------------------|
+| V(n001)  | 0.9               |
+| V(n002)  | 0                 |
+| V(n003)  | 0                 |
+| V(n004)  | -0.9              |
+| V(vout1) | 3.90313e-16 ≈ 0   |
+| V(vout2) | 0                 |
+| V(vs)    | -0.707107         |
+
+---
+
+## SOURCE CURRENTS
+
+| Source | Current (A) |
+|--------|------------|
+| I(V1)  | 0          |
+| I(V2)  | 0          |
+| I(V3)  | 0.001      |
+| I(V4)  | -0.001     |
+
+---
+
+## RESISTOR CURRENTS
+
+| Resistor | Current (A) |
+|----------|------------|
+| I(R1)    | 0.0005     |
+| I(R2)    | 0.0005     |
+
+---
+
+## MOSFET M1 PARAMETERS
+
+| Parameter | Value (A)        |
+|----------|----------------|
+| Id(M1)   | 0.0005         |
+| Ig(M1)   | 0              |
+| Ib(M1)   | -7.17107e-13   |
+| Is(M1)   | -0.0005        |
+
+---
+
+## MOSFET M2 PARAMETERS
+
+| Parameter | Value (A)        |
+|----------|----------------|
+| Id(M2)   | 0.0005         |
+| Ig(M2)   | 0              |
+| Ib(M2)   | -7.17107e-13   |
+| Is(M2)   | 0.0005         |
+
+---
+
+## OBSERVATIONS
+
+- Output voltage ≈ 0 → Balanced differential condition  
+- Id(M1) = Id(M2) → Proper symmetry  
+- Negligible gate and bulk currents  
+- Equal resistor currents → Correct biasing  
+
+---
+
+## CONCLUSION
+
+The circuit operates correctly in DC with proper biasing and symmetry, confirming expected differential amplifier behavior.
+
+
+
+
+
+
+
+## Common Mode Input Range Calculation
+
+### Given:
+- VDD = 0.9 V  
+- VSS = -0.9 V  
+- VP = -0.7 V  
+- Vout,CM = 0 V ⇒ VD = 0 V  
+- VT = 0.366 V  
+
+---
+
+## 1. Calculation of VCM(min)
+
+### Condition:
+For NMOS to just turn ON:
+VGS = VT  
+
+### Formula:
+VCM(min) = VP + VT  
+
+### Substitution:
+VCM(min) = -0.7 + 0.366  
+
+### Result:
+VCM(min) = -0.334 V  
+
+---
+
+## 2. Calculation of VCM(max)
+
+### Condition:
+For NMOS to remain in saturation:
+VDS = VOV  
+
+---
+
+### Step 1: Drain-Source Voltage
+VDS = VD - VS  
+VDS = 0 - (-0.7)  
+VDS = 0.7 V  
+
+---
+
+### Step 2: Overdrive Voltage
+VOV = VGS - VT  
+
+VGS = VCM - VP  
+VGS = VCM + 0.7  
+
+So,
+VOV = (VCM + 0.7) - 0.366  
+VOV = VCM + 0.334  
+
+---
+
+### Step 3: Apply Saturation Condition
+VDS = VOV  
+
+0.7 = VCM + 0.334  
+
+---
+
+### Step 4: Solve
+VCM = 0.366 V  
+
+---
+
+## Final Results:
+
+VCM(min) = -0.334 V  
+VCM(max) = 0.366 V  
+
+---
+
+## Conclusion:
+
+The common-mode input voltage range is:
+
+-0.334 V ≤ VCM ≤ 0.366 V  
+
+The lower limit ensures transistor turn-on, and the upper limit ensures saturation operation.
+
 
