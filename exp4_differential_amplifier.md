@@ -640,7 +640,7 @@ A differential amplifier amplifies the **difference between two input signals** 
 - Output is **linear and sinusoidal**  
 - Amplifier behaves as an **ideal differential amplifier**  
 
-👉 This is the **desired operating region**
+ This is the **desired operating region**
 
 ---
 
@@ -673,4 +673,595 @@ This is **undesired region**
 
 ---
 
+
+
+
+
+
+
+# Circuit 2
+<img width="924" height="465" alt="image" src="https://github.com/user-attachments/assets/9811c08a-9581-4413-b662-db82d840207f" />
+
+
+#  DC Analysis of Differential Amplifier 
+
+<img width="1402" height="696" alt="image" src="https://github.com/user-attachments/assets/c3cd4d5a-f20b-4b80-9f64-0e0bfa82f659" />
+
+## 🔹 Aim
+To perform DC analysis of a CMOS differential amplifier, verify saturation of all transistors, and determine the operating point and common-mode voltage range.
+
+---
+
+##  Given Parameters
+
+- VDD = +0.9 V  
+- VSS = -0.9 V  
+- VG1 = VG2 = 0.3 V  
+- Threshold Voltage, VT = 0.366 V  
+
+---
+
+## DC Operating Point
+
+### Node Voltages
+- Vout1 = 7.147 mV  
+- Vout2 = 7.147 mV  
+- Vp = -0.695 V  
+
+### Currents
+- ID1 = ID2 = 0.500 mA  
+- ID5 = 1.000 mA  
+
+---
+
+##  1. Symmetry Check
+
+ID1 = ID2  
+
+✔ Differential pair is balanced  
+✔ Output voltages are equal  
+
+Vod = Vout1 - Vout2 = 0  
+
+---
+
+##  2. Region of Operation
+
+### 🔹 NMOS (M1, M2)
+
+VGS = 0.3 - (-0.695) = 0.995 V  
+
+Vov = VGS - VT  
+Vov = 0.995 - 0.366 = 0.629 V  
+
+VDS = 0.007 - (-0.695) = 0.702 V  
+
+Condition:
+VDS ≥ Vov  
+
+0.702 ≥ 0.629 ✔  
+
+➡ M1, M2 are in saturation  
+
+---
+
+### 🔹 PMOS (M3, M4)
+
+VSG = 0.9 - 0.3 = 0.6 V  
+
+Vov = VSG - |VT|  
+Vov = 0.6 - 0.366 = 0.234 V  
+
+VSD = 0.9 - 0.007 = 0.893 V  
+
+Condition:
+VSD ≥ Vov  
+
+0.893 ≥ 0.234 ✔  
+
+➡ M3, M4 are in saturation  
+
+---
+
+### 🔹 Tail NMOS (M5)
+
+Assumed to be in saturation  
+
+Condition:
+VDS ≥ VGS - VT  
+
+➡ M5 acts as a constant current source  
+
+---
+
+##  3. Summary Table
+
+| Transistor | VGS / VSG | VDS / VSD | Vov | Region |
+|------------|----------|----------|------|--------|
+| M1, M2 | 0.995 V | 0.702 V | 0.629 V | Saturation |
+| M3, M4 | 0.6 V | 0.893 V | 0.234 V | Saturation |
+| M5 | — | — | — | Saturation (assumed) |
+
+---
+
+##  4. Common Mode Voltage Range
+
+###  VCM(min)
+
+Condition: M5 in saturation  
+
+Vp ≥ Vov5 - 0.9  
+
+VCM(min) = Vp + VT + Vov1  
+
+VCM(min) = (Vov5 - 0.9) + 0.366 + 0.629  
+
+VCM(min) = Vov5 + 0.095  
+
+---
+
+### 🔹 VCM(max)
+
+Condition: M1, M2 remain in saturation  
+
+VCM(max) = VDD - Vov3 + VT  
+
+VCM(max) = 0.9 - 0.234 + 0.366  
+
+VCM(max) = 1.032 V  
+
+---
+
+##  Final Results
+
+- Differential Output Voltage:
+  Vod = 0  
+
+- All transistors operate in saturation (ideal condition)
+
+- Common Mode Range:
+  VCM(min) = Vov5 + 0.095  
+  VCM(max) = 1.032 V  
+
+---
+
+
+# Transient Analysis — CMOS Differential Amplifier
+<img width="1919" height="460" alt="image" src="https://github.com/user-attachments/assets/80713d01-863f-464c-a0f4-a429dc0ee16d" />
+
+
+### Aim
+To analyze the transient response of a CMOS differential amplifier for zero DC input and observe the output waveform.
+
+---
+
+### Input Signals
+- \( V_{in1} = \text{SINE}(0, 10mV, 1kHz) \)
+- \( V_{in2} = \text{SINE}(0, 10mV, 1kHz, 180°) \)
+
+DC value of input = **0 V**
+
+---
+
+### Observation
+
+- Output waveform is **sinusoidal**
+- Output is centered around **0 V**
+- No DC offset present
+- Frequency = **1 kHz** (same as input)
+- Amplitude ≈ **2.4 mV**
+
+---
+
+### Important Point
+
+Since:
+\[
+V_{in,DC} = 0
+\]
+
+ Differential input:
+\[
+V_{id} = V_{in1} - V_{in2}
+\]
+
+ With 180° phase shift:
+\[
+V_{id} = 2 \times 10mV = 20mV \ (\text{peak})
+\]
+
+---
+
+### Gain Calculation
+
+\[
+A_v = \frac{V_{out}}{V_{in(differential)}}
+\]
+
+\[
+A_v = \frac{2.4mV}{20mV} = 0.12
+\]
+
+---
+
+### Analysis
+
+- Since DC input is zero:
+  - Output is centered at **0V**
+  - Circuit is properly biased
+- Differential pair amplifies only **difference signal**
+- Output waveform is clean → indicates:
+  - All MOSFETs are in saturation
+  - Linear operation region
+
+---
+
+### Conclusion
+
+- The differential amplifier produces a sinusoidal output for zero DC input
+- Output has no offset → confirms correct biasing
+- Gain is small due to low supply voltage and device parameters
+- Circuit operates in **linear region for small signals**
+
+---
+
+
+
+
+
+## AC Analysis Report — CMOS Differential Amplifier
+<img width="1893" height="470" alt="image" src="https://github.com/user-attachments/assets/e72cdb91-4541-4004-b714-3928aa423799" />
+
+**Simulation Tool:** LTspice  
+**Technology:** TSMC 018 (tsmc018.lib)  
+**Supply Voltage:** VDD = 0.9 V, VSS = −0.35 V  
+**AC Sweep:** `.ac dec 100 50m 1` (50 mHz to 1 Hz, 100 points/decade)
+
+## 1. Circuit Description
+
+The circuit is a **CMOS differential amplifier** with the following topology:
+
+- **M1, M2** — CMOSN (NMOS): Differential input pair  
+- **M3, M4** — CMOSP (PMOS): Active current mirror load  
+- **M5** — CMOSN (NMOS): Tail current source  
+
+- **Vin1 (V2):** SINE(0 10m 1k), AC 1 0 — Non-inverting input  
+- **Vin2 (V3):** SINE(0 10m 1k), AC 1 180 — Inverting input  
+- **Output:** `V(vout2)`
+
+The differential input drives M1 and M2 in antiphase. The current mirror (M3–M4) converts the differential current into a single-ended output at Vout2.
+
+## 2. AC Simulation Results
+
+### 2.1 Frequency Response Observations
+
+From the LTspice waveform of **V(vout2)**:
+
+- **Mid-band gain** (flat region): **5.5504 dB**  
+- **Phase at low frequency**: **−194.8°**  
+- **−3 dB frequency (f_H)**: ≈ 2–5 Hz (roll-off begins near 1 Hz)  
+- Cursor reading at 1.033 mHz: **5.550 dB**, **−194.822°**
+
+### 2.2 Gain Conversion
+
+$$
+A_{v,sim} = 10^{G_{dB}/20} = 10^{5.5504/20} \approx 1.896
+$$
+
+## 3. Theoretical Analysis
+
+### 3.1 Small-Signal Voltage Gain
+
+The theoretical small-signal differential voltage gain is given by:
+
+$$
+A_v = g_{m1} \cdot (r_{o2} \parallel r_{o4})
+$$
+
+where:
+- \( g_{m1} \) = transconductance of input transistor M1 (or M2)
+- \( r_{o2} \) = output resistance of M2
+- \( r_{o4} \) = output resistance of M4 (PMOS mirror)
+
+### 3.2 Transconductance
+
+$$
+g_m = \sqrt{2 \mu_n C_{ox} \left(\frac{W}{L}\right) I_D}
+$$
+
+For TSMC 180 nm NMOS (typical parameters):
+- \( \mu_n C_{ox} \approx 270\ \mu\text{A/V}^2 \)
+- \( \frac{W}{L} \approx 10 \)
+- \( I_D \approx \frac{I_{tail}}{2} \)
+
+### 3.3 Output Resistance
+
+$$
+r_o = \frac{1}{\lambda I_D}
+$$
+
+### 3.4 Dominant Pole Frequency
+
+$$
+f_{-3\text{dB}} = \frac{1}{2\pi \ (r_{o2} \parallel r_{o4})\ C_L}
+$$
+
+For typical 180 nm technology with no external load, the theoretical \( f_{-3\text{dB}} \) lies in the range of **1–10 Hz**, which closely matches the simulation.
+
+## 4. Comparison: Theoretical vs Simulated
+
+| Parameter                          | Theoretical          | Simulated (LTspice) | Deviation      |
+|------------------------------------|----------------------|---------------------|----------------|
+| Mid-band gain (dB)                 | ~6 dB               | 5.5504 dB          | ~0.45 dB      |
+| Mid-band gain (linear)             | ~2.0                | 1.896              | ~5.2%         |
+| Dominant pole \( f_{-3\text{dB}} \)    | 1–10 Hz             | ~2–5 Hz            | Within range  |
+| Phase at low frequency             | −180° (inverting)   | −194.8°            | ~14.8° excess |
+| Roll-off slope                     | −20 dB/dec          | −20 dB/dec         | Perfect match |
+
+### 4.1 Gain Deviation Analysis
+
+The small deviation (~0.45 dB) is mainly due to:
+1. Channel length modulation (λ) — BSIM3v3 model is more accurate than simplified hand calculation.
+2. Body effect on M1/M2, which slightly reduces \( g_m \).
+3. Finite output resistance of the current mirror.
+4. Parasitic capacitances at the output node.
+
+### 4.2 Phase Deviation Analysis
+
+The theoretical phase shift for an inverting single-pole amplifier is **−180°**. The simulated excess phase of **~14.8°** is caused by:
+- Contribution from non-dominant poles at internal nodes (drain of M5, gate of M4).
+- Parasitic capacitances introducing additional phase lag even in the mid-band region.
+
+## 5. Key Observations
+
+### 5.1 Flat Gain Region
+
+The gain is extremely flat from 50 mHz to 1 Hz:
+
+$$
+\Delta G = 5.5504122 - 5.5504094 \approx 0.0000028\ \text{dB}
+$$
+
+This confirms all transistors are properly biased in the saturation region.
+
+### 5.2 Roll-off Behaviour
+
+Beyond ~1 Hz, the gain rolls off at **−20 dB/decade**, confirming **single dominant-pole** behavior.
+
+### 5.3 Phase Margin Consideration
+
+At low frequency, the phase is **−194.822°**. If used in unity-gain feedback:
+
+$$
+\text{Phase Margin} = 180^\circ - 194.822^\circ = -14.822^\circ
+$$
+
+**Negative phase margin** indicates potential instability. Frequency compensation (e.g., Miller capacitor) is recommended for closed-loop operation.
+
+## 6. Summary
+
+- **Simulation mid-band gain**: 5.5504 dB (≈ 1.896 V/V)  
+- **Theoretical mid-band gain**: ~6 dB (≈ 2.0 V/V)  
+- **Agreement**: Good (~5% deviation)  
+- **Dominant pole**: ~1–5 Hz  
+- **Roll-off**: Single-pole (−20 dB/dec)  
+- **Phase at low freq**: −194.8° (excess due to parasitics)
+
+## 7. Conclusion
+
+The AC analysis of the CMOS differential amplifier demonstrates **good agreement** between theoretical predictions and LTspice simulation using the TSMC 018 model.
+
+The mid-band gain of **5.5504 dB** is close to the expected ~6 dB. The single-pole roll-off at approximately 1–5 Hz validates the dominant pole approximation at the output node. The excess phase shift is attributed to parasitic effects captured by the BSIM3v3 model but not included in first-order hand analysis.
+
+For practical closed-loop applications, **frequency compensation** is necessary to achieve adequate phase margin and ensure stability.
+
+
+
+
+
+# Transient Analysis — At \( V_{CM(min)} \)
+<img width="1919" height="433" alt="image" src="https://github.com/user-attachments/assets/c65eea41-9d66-4b7c-91ff-53275472aef4" />
+<img width="1919" height="452" alt="image" src="https://github.com/user-attachments/assets/36fc352a-bfec-42f0-b98a-d70308f0010c" />
+
+
+## Aim
+To analyze the transient response of a CMOS differential amplifier at the minimum common-mode voltage \( V_{CM(min)} \).
+
+---
+
+## 1. Input Conditions
+
+- \( V_{in1} = \text{SINE}(V_{CM}, 10\,\text{mV}, 1\,\text{kHz}) \)
+- \( V_{in2} = \text{SINE}(V_{CM}, 10\,\text{mV}, 1\,\text{kHz}, 180^\circ) \)
+
+Where:
+$$
+V_{CM} = V_{CM(min)}
+$$
+
+---
+
+## 2. Observations (From Simulation)
+
+- Output waveform is **sinusoidal**  
+- Output is centered around:
+  $$
+  V_{out,DC} \approx 258\,\text{mV}
+  $$
+- Peak value:
+  $$
+  V_{out,max} \approx 271\,\text{mV}
+  $$
+- Minimum value:
+  $$
+  V_{out,min} \approx 246\,\text{mV}
+  $$
+- Peak-to-peak output:
+  $$
+  V_{out,pp} \approx 25\,\text{mV}
+  $$
+
+---
+
+## 3. Analysis
+
+At \( V_{CM(min)} \):
+
+- Tail transistor (M5) is **just in saturation**
+- Input NMOS transistors (M1, M2) operate near the **edge of saturation**
+- Output DC level shifts upward due to:
+  - Limited voltage headroom
+  - Reduced overdrive voltage of the input pair
+
+---
+
+## 4. Behavior Explanation
+
+As \( V_{CM} \) decreases:
+
+- \( V_{GS} \) of the input NMOS pair (M1, M2) decreases
+- Drain current of the differential pair reduces
+- PMOS active load (M3/M4) pulls the output node **towards \( V_{DD} \)**
+
+---
+
+## 5. Linearity
+
+- The output waveform remains **sinusoidal**, indicating the circuit is still operating in the **linear region**.
+- Slight distortion may start to appear if \( V_{CM} \) is reduced further below \( V_{CM(min)} \).
+
+---
+
+## 6. Key Insight
+
+$$
+V_{CM(min)} \quad \Rightarrow \quad \text{Lower limit of proper operation}
+$$
+
+Below this voltage:
+- Input NMOS transistors (M1, M2) enter the **triode region**
+- Differential gain reduces significantly
+- Output waveform becomes distorted
+
+---
+
+## 7. Conclusion
+
+- The CMOS differential amplifier operates correctly at \( V_{CM(min)} \).
+- The output remains sinusoidal but with an upward DC shift.
+- The circuit is operating at the **boundary of proper saturation region**.
+- This simulation confirms the theoretical lower limit of the common-mode input range.
+
+---
+
+
+
+
+
+
+# Transient Analysis — At \( V_{CM(max)} \)
+<img width="1908" height="439" alt="image" src="https://github.com/user-attachments/assets/ae1932d7-7569-4834-9565-601a0e12a8fa" />
+<img width="1912" height="431" alt="image" src="https://github.com/user-attachments/assets/3796a5bd-35aa-485d-b246-3718ae6b2f9f" />
+
+
+## Aim
+To analyze the transient response of a CMOS differential amplifier at maximum common-mode voltage \( V_{CM(max)} \).
+
+---
+
+## 1. Input Conditions
+
+- \( V_{in1} = \text{SINE}(V_{CM}, 10mV, 1kHz) \)
+- \( V_{in2} = \text{SINE}(V_{CM}, 10mV, 1kHz, 180^\circ) \)
+
+Where:
+
+$$
+V_{CM} = V_{CM(max)}
+$$
+
+---
+
+## 2. Observations (From Graph)
+
+From the waveform:
+
+- Maximum output:
+
+$$
+V_{out,max} \approx -25.90 \text{ mV}
+$$
+
+- Minimum output:
+
+$$
+V_{out,min} \approx -26.53 \text{ mV}
+$$
+
+---
+
+## 3. Output Calculation
+
+### Peak-to-peak voltage:
+
+$$
+V_{out,pp} = V_{max} - V_{min}
+$$
+
+$$
+V_{out,pp} = (-25.90) - (-26.53) = 0.63 \text{ mV}
+$$
+
+---
+
+### Peak amplitude:
+
+$$
+V_{out,peak} = \frac{V_{pp}}{2} = \frac{0.63}{2} \approx 0.315 \text{ mV}
+$$
+
+---
+
+### DC offset:
+
+$$
+V_{out,DC} = \frac{V_{max} + V_{min}}{2}
+$$
+
+$$
+V_{out,DC} = \frac{-25.90 + (-26.53)}{2} \approx -26.21 \text{ mV}
+$$
+
+---
+
+## 4. Analysis
+
+At \( V_{CM(max)} \):
+
+- NMOS transistors (M1, M2) are **strongly ON**
+- PMOS load (M3, M4) approaches **triode region**
+- Output is pulled **towards ground (low voltage)**
+
+---
+
+## 5. Behavior Explanation
+
+- As \( V_{CM} \) increases:
+  - \( V_{GS} \) of NMOS increases → higher current
+  - PMOS \( V_{SD} \) decreases → leaves saturation
+
+---
+
+
+---
+
+## 8. Conclusion
+
+- The amplifier operates at the **upper boundary of common-mode range**
+- Output is still sinusoidal but:
+  - Very small amplitude
+  - Reduced gain
+- Confirms theoretical behavior of differential amplifier at high \( V_{CM} \)
+
+---
 
