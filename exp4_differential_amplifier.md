@@ -673,11 +673,4 @@ This is **undesired region**
 
 ---
 
-## KEY TAKEAWAY
-
-> Small differential input → Linear (Amplifier)  
-> Large differential input → Non-linear (Switch behavior)
-## CONCLUSION
-
-For \( V_{id} > \sqrt{2}V_{OV} \), the differential amplifier operates in the non-linear region. One transistor turns OFF, resulting in unequal current distribution and a distorted output waveform.
 
