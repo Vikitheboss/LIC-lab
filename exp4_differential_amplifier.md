@@ -611,6 +611,72 @@ This leads to:
 
 ---
 
+
+
+# COMPARE AND INTERPRET THE ANALYSIS
+
+## COMPARISON OF RESULTS
+
+| Parameter / Condition        | \( V_{id} < \sqrt{2}V_{OV} \) | \( V_{id} > \sqrt{2}V_{OV} \) |
+|-----------------------------|------------------------------|------------------------------|
+| MOSFET Operation            | Both in saturation           | One in cutoff, one active    |
+| Current Distribution        | Equal sharing                | Unequal (one dominates)      |
+| Output Waveform             | Sinusoidal                   | Distorted / non-linear       |
+| Linearity                   | Linear region               | Non-linear region            |
+| Gain Behavior               | Constant                    | Varies (non-linear gain)     |
+| Symmetry                    | Symmetrical                 | Asymmetrical                 |
+| Signal Quality              | High (clean output)         | Poor (clipping/distortion)   |
+
+---
+
+## INTERPRETATION
+
+A differential amplifier amplifies the **difference between two input signals** while rejecting common components :contentReference[oaicite:0]{index=0}. The behavior of the circuit strongly depends on the magnitude of the differential input voltage.
+
+### 🔹 Case 1: \( V_{id} < \sqrt{2}V_{OV} \)
+
+- Both MOSFETs remain in **saturation region**  
+- Tail current is **shared equally**  
+- Output is **linear and sinusoidal**  
+- Amplifier behaves as an **ideal differential amplifier**  
+
+👉 This is the **desired operating region**
+
+---
+
+### 🔹 Case 2: \( V_{id} > \sqrt{2}V_{OV} \)
+
+- One MOSFET enters **cutoff region**  
+- Other MOSFET carries **entire current**  
+- Circuit loses symmetry  
+- Output becomes **distorted and non-linear**  
+
+This is **undesired region**
+
+---
+
+## PHYSICAL MEANING
+
+- Differential pair works by **steering current between two transistors**
+- For small inputs:
+  - Current splits smoothly → **linear output**
+- For large inputs:
+  - Current fully shifts to one side → **switch-like behavior**
+
+---
+
+## FINAL CONCLUSION
+
+- The condition \( V_{id} < \sqrt{2}V_{OV} \) ensures **linear amplification**
+- Exceeding this limit causes **cutoff and distortion**
+- Hence, proper input selection is essential for **accurate differential amplifier operation**
+
+---
+
+## KEY TAKEAWAY
+
+> Small differential input → Linear (Amplifier)  
+> Large differential input → Non-linear (Switch behavior)
 ## CONCLUSION
 
 For \( V_{id} > \sqrt{2}V_{OV} \), the differential amplifier operates in the non-linear region. One transistor turns OFF, resulting in unequal current distribution and a distorted output waveform.
