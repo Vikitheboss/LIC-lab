@@ -277,3 +277,341 @@ The common-mode input voltage range is:
 The lower limit ensures transistor turn-on, and the upper limit ensures saturation operation.
 
 
+
+
+
+
+## Common Mode Voltage Limits (VCM min and VCM max)
+
+---
+<img width="1441" height="675" alt="image" src="https://github.com/user-attachments/assets/ef218bc8-abab-4cc1-aed9-b41cdae40644" />
+
+## Introduction
+
+The common-mode input voltage is defined as:
+
+VCM = (Vin1 + Vin2) / 2
+
+For proper operation of a MOS differential amplifier, both transistors must remain in saturation region. This gives two limits:
+- VCM(min)
+- VCM(max)
+
+---
+
+## Condition for Saturation
+
+For NMOS:
+
+VDS ≥ VGS - VT
+
+---
+
+## VCM(min) Derivation
+
+At minimum common-mode voltage, transistor is just ON:
+
+VGS = VT
+
+We know:
+
+VGS = VG - VS
+
+So,
+
+VT = VCM(min) - VS
+
+Rearranging:
+
+VCM(min) = VS + VT
+
+---
+
+### Using simulation values:
+
+VS = -0.707 V  
+VT = 0.366 V  
+
+VCM(min) = -0.707 + 0.366  
+VCM(min) ≈ -0.34 V
+
+---
+
+## Result
+
+VCM(min) ≈ -0.34 V
+
+---
+
+## Observation
+
+At this point:
+- VGS ≈ VT  
+- Overdrive voltage ≈ 0  
+- Transistor is just turned ON  
+
+---
+
+## VCM(max) Derivation
+
+At maximum common-mode voltage, transistor leaves saturation:
+
+VDS = VGS - VT
+
+We know:
+
+VD - VS = VGS - VT  
+VD - VS = (VCM(max) - VS) - VT  
+
+Simplifying:
+
+VD = VCM(max) - VT  
+
+So,
+
+VCM(max) = VD + VT
+
+---
+
+### Using simulation values:
+
+VD = 0 V  
+VT = 0.366 V  
+
+VCM(max) = 0 + 0.366  
+VCM(max) ≈ 0.366 V
+
+---
+
+## Result
+
+VCM(max) ≈ 0.366 V
+
+---
+
+## Final Summary
+
+VCM(min) = -0.34 V  
+VCM(max) = 0.366 V  
+
+---
+
+## Conclusion
+
+The differential amplifier operates correctly in the range:
+
+-0.34 V ≤ VCM ≤ 0.366 V
+
+Below VCM(min): transistor goes to cutoff  
+
+
+---
+
+## Key Point
+
+VCM(min) → determined by turn-on condition  
+
+
+## Transient Analysis at VCM(min)
+<img width="1919" height="509" alt="image" src="https://github.com/user-attachments/assets/aacf6c30-2850-4cdc-a076-b9a5f86928bb" />
+
+At VCM(min), the input signal is applied as a sine wave.
+
+However, the output remains constant (no variation observed).
+
+This is because:
+
+VGS ≈ VT  
+Overdrive voltage (Vov) ≈ 0  
+
+Due to this, the transconductance (gm) is nearly zero, and the transistor is just at the edge of conduction.
+
+Hence, no amplification occurs and output remains flat.
+
+---
+
+## Conclusion
+
+At VCM(min), the differential amplifier does not amplify the signal and acts as a non-functional amplifier.
+
+
+
+
+
+
+## Operating Point at VCM(max)
+<img width="1385" height="624" alt="image" src="https://github.com/user-attachments/assets/4b97c461-5985-4695-9e6b-f56c8f39a16f" />
+
+From simulation:
+
+VG = 0.366 V  
+VS = -0.707 V  
+VD = 0 V  
+
+---
+
+### Calculation
+
+VGS = VG - VS  
+VGS = 0.366 - (-0.707) = 1.073 V  
+
+Vov = VGS - VT  
+Vov = 1.073 - 0.366 = 0.707 V  
+
+VDS = VD - VS  
+VDS = 0 - (-0.707) = 0.707 V  
+
+---
+
+### Condition
+
+VDS = Vov  
+
+---
+
+## Conclusion
+
+At VCM(max), the MOSFET operates at the boundary between saturation 
+
+Any further increase in VCM will push the transistor into triode region, resulting in distortion and loss of amplification.
+
+
+
+## Transient Analysis at VCM(max)
+<img width="1918" height="507" alt="image" src="https://github.com/user-attachments/assets/bc76eca8-2b14-430d-a8ca-930aa60ea706" />
+
+
+At VCM(max), a sinusoidal input signal is applied.
+
+However, the output remains nearly constant (no amplification observed).
+
+This is because:
+
+VDS = Vov  
+
+The MOSFET operates at the boundary of saturation and enters triode region for small signal variations.
+
+Due to this, transconductance decreases and the amplifier loses its gain.
+
+---
+
+## Conclusion
+
+At VCM(max), the differential amplifier fails to amplify the input signal and becomes non-functional.
+
+
+
+
+# TRANSIENT ANALYSIS (VID < √2 VOV CONDITION)
+
+## OUTPUT WAVEFORM
+
+![Linear Output Waveform]
+<img width="1888" height="411" alt="image" src="https://github.com/user-attachments/assets/b7d7f7ac-71e4-46e5-b1ff-b90a99bbea4a" />
+
+
+---
+
+## GRAPH DETAILS
+
+| Parameter            | Value / Description        |
+|---------------------|--------------------------|
+| Condition           | \( V_{id} < \sqrt{2}V_{OV} \) |
+| Output Observed     | V(vout1), V(vout2)       |
+| Waveform Type       | Sinusoidal               |
+| Amplitude Scale     | nV (very small)          |
+| Nature              | Linear                   |
+
+---
+
+## OBSERVATIONS
+
+- The output waveform is **smooth and sinusoidal**  
+- No distortion or clipping is observed  
+- Both transistors are operating in **saturation region**  
+- The circuit behaves as a **linear amplifier**  
+
+---
+
+## ANALYSIS
+
+For differential amplifier:
+
+\[
+V_{id} = V_1 - V_2
+\]
+
+Condition for linear operation:
+
+\[
+V_{id} < \sqrt{2}V_{OV}
+\]
+
+Since this condition is satisfied:
+- Both MOSFETs conduct simultaneously  
+- Current is shared between them  
+- Output remains **linear**
+
+---
+
+## IMPORTANT NOTE
+
+- The output amplitude is very small (**in nV range**)  
+- This is because:
+  - Single-ended output is observed  
+  - Input signal is very small  
+
+For better observation:
+- Plot differential output:
+  \[
+  V_{out} = V(vout1) - V(vout2)
+  \]
+
+---
+
+## CONCLUSION
+
+The condition \( V_{id} < \sqrt{2}V_{OV} \) ensures linear operation of the differential amplifier. The obtained sinusoidal waveform confirms that the circuit is operating in the linear region, although the output amplitude is small.
+
+
+
+
+# TRANSIENT ANALYSIS (VID > √2 VOV)
+
+## OUTPUT WAVEFORM
+
+![Non-linear waveform]
+<img width="1906" height="383" alt="image" src="https://github.com/user-attachments/assets/40c0aaf9-d71a-43b5-bfdd-61aebe148a23" />
+
+
+---
+
+## OBSERVATIONS
+
+- The output waveform is **distorted and non-sinusoidal**  
+- A DC offset is present in the signal  
+- The waveform shows **asymmetry and sharp peaks**  
+- Output amplitude is reduced  
+
+---
+
+## ANALYSIS
+
+When:
+\[
+V_{id} > \sqrt{2}V_{OV}
+\]
+
+- One MOSFET enters **cutoff region**  
+- The other MOSFET carries the **entire tail current**  
+- Current is not equally shared  
+
+This leads to:
+- Non-linear operation  
+- Distorted output waveform  
+
+---
+
+## CONCLUSION
+
+For \( V_{id} > \sqrt{2}V_{OV} \), the differential amplifier operates in the non-linear region. One transistor turns OFF, resulting in unequal current distribution and a distorted output waveform.
+
