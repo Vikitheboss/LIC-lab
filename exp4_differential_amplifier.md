@@ -107,7 +107,7 @@ V_CM(min) ≤ V_CM ≤ V_CM(max)
 
 ---
 ## CIRCUIT DIAGRAM
-<img width="1226" height="722" alt="image" src="https://github.com/user-attachments/assets/29a55b59-4743-4bc6-ba78-4a5d19f5edab" />
+<img width="1794" height="884" alt="image" src="https://github.com/user-attachments/assets/2098c49b-f361-4534-b22f-8f5cf1913681" />
 
 
 
