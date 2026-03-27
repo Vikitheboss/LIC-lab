@@ -2539,3 +2539,220 @@ At VCM(max):
 
 ---
 
+
+
+
+
+
+
+
+
+
+# Differential Amplifier — Circuit Comparison 
+
+**Course:** Linear Integrated Circuits (LIC) Lab
+**Technology:** TSMC 180 nm | **Channel Length:** L = 480 nm
+**Supply:** VDD = +0.9 V, VSS = −0.9 V | **Power Budget:** P ≤ 1.8 mW
+
+---
+
+## Circuit Descriptions
+
+| | Circuit 1 | Circuit 2 | Circuit 3 |
+|---|---|---|---|
+| **Load type** | Resistors (R₁, R₂) | PMOS current mirror (M3, M4) | PMOS mirror + C_L = 10 pF |
+| **Transistors** | M1, M2 (NMOS) + tail current source | M1, M2 (NMOS) + M3, M4 (PMOS) + M5 (tail) | Same as C2, with capacitive load |
+| **Tail current source** | Ideal current source (V3) | M5 (NMOS, in saturation) | M5 (NMOS, in saturation) |
+
+---
+
+## 1. Power Comparison
+
+> **Design constraint:** P ≤ 1.8 mW
+
+| Parameter | Circuit 1 | Circuit 2 | Circuit 3 |
+|---|---|---|---|
+| **VDD − VSS** | 1.8 V | 1.8 V | 1.8 V |
+| **Tail current (I_SS)** | 1 mA | 1 mA | 1 mA |
+| **Each branch current (I_D)** | 0.5 mA | 0.5 mA | 0.5 mA |
+| **Total power consumed** | **1.8 mW** | **1.8 mW** | **1.8 mW** |
+| **Within spec?** | ✓ Yes | ✓ Yes | ✓ Yes |
+
+**Key observation:** All three circuits consume identical DC power of 1.8 mW because the tail current and supply voltage are unchanged across all configurations. The type of load (resistive vs active) does not affect static power dissipation.
+
+---
+
+## 2. Gain Comparison
+
+### Gain Formula
+
+| Parameter | Circuit 1 | Circuit 2 | Circuit 3 |
+|---|---|---|---|
+| **Gain formula** | A_d = g_m × R_D | A_d = g_m × (r_o2 ‖ r_o4) | A_d = g_m × (r_o2 ‖ r_o4) |
+| **Mid-band gain (linear)** | Low (~g_m·R_D) | **~1.9 V/V** | **~1.9 V/V** |
+| **Mid-band gain (dB)** | Lower | **5.55 dB** | **5.55 dB** |
+| **Theoretical gain (dB)** | — | ~6 dB | ~6 dB |
+| **Deviation from theory** | — | ~0.45 dB | ~0.45 dB |
+
+### Why Circuit 2 & 3 have higher gain
+
+- Resistive load (C1): drain resistance R_D is limited in value to avoid pushing transistors into triode. Gain is bounded.
+- Active mirror load (C2, C3): replaces R_D with the parallel combination of NMOS output resistance r_o2 and PMOS output resistance r_o4. This is significantly larger than a physical resistor, giving much higher gain.
+
+### Transient Gain (small-signal, from simulation)
+
+| Parameter | Circuit 1 | Circuit 2 | Circuit 3 |
+|---|---|---|---|
+| **Differential input (V_id)** | 20 mV peak | 20 mV peak | 20 mV peak |
+| **Output swing (V_out,pp)** | Very small (nV range) | ~2.4 mV | Slightly reduced (CL effect) |
+| **Calculated A_v** | ≈ negligible | **0.12** (single-ended) | Lower due to pole |
+
+> Note: The transient gain of 0.12 is for single-ended output. Full differential output (V_out1 − V_out2) would yield higher effective gain.
+
+---
+
+## 3. Input Swing Comparison
+
+### Common-Mode Input Range (V_CM)
+
+| Parameter | Circuit 1 | Circuit 2 | Circuit 3 |
+|---|---|---|---|
+| **V_CM(min)** | −0.334 V | −0.34 V | −0.34 V |
+| **V_CM(max)** | **+0.366 V** | **+1.032 V** | **+1.032 V** |
+| **Total CM swing** | **~0.70 V** | **~1.37 V** | **~1.37 V** |
+
+### V_CM(min) Derivation (all circuits)
+
+```
+Condition: NMOS input pair just turns ON → VGS = VT
+
+V_CM(min) = V_P + V_T
+           = −0.7 + 0.366
+           = −0.334 V  (C1) / −0.34 V (C2, C3 from simulation V_S)
+```
+
+### V_CM(max) Derivation
+
+**Circuit 1** — limited by NMOS saturation condition:
+```
+VDS = VOV → VCM(max) = VD + VT = 0 + 0.366 = +0.366 V
+```
+
+**Circuit 2 & 3** — limited by PMOS load saturation condition:
+```
+V_CM(max) = VDD − V_ov(PMOS) + V_T(NMOS)
+           = 0.9 − 0.234 + 0.366
+           = +1.032 V
+```
+
+The PMOS active load gives ~2× wider common-mode input swing compared to resistive load.
+
+### Linear Differential Input Swing (all circuits)
+
+For linear (undistorted) operation, the differential input must satisfy:
+
+```
+V_id < √2 × V_OV
+```
+
+| Condition | MOSFET behaviour | Output |
+|---|---|---|
+| V_id < √2·V_OV | Both M1, M2 in saturation, current shared equally | Clean sinusoidal output |
+| V_id > √2·V_OV | One MOSFET enters cutoff, other carries full current | Distorted, clipped output |
+
+---
+
+## 4. Bandwidth & Frequency Response Comparison
+
+| Parameter | Circuit 1 | Circuit 2 | Circuit 3 |
+|---|---|---|---|
+| **Dominant pole formula** | 1 / (2π·R_D·C_par) | 1 / (2π·r_out·C_par) | 1 / (2π·r_out·(C_par + C_L)) |
+| **Approximate f_−3dB** | Higher (lower r_out) | ~1–5 Hz | < 1 Hz |
+| **Roll-off slope** | −20 dB/decade | −20 dB/decade | −20 dB/decade |
+| **Bandwidth trade-off** | Wide BW, lower gain | Narrow BW, higher gain | Narrowest BW, same gain as C2 |
+
+---
+
+## 5. Stability & Phase Margin
+
+| Parameter | Circuit 1 | Circuit 2 | Circuit 3 |
+|---|---|---|---|
+| **Phase at low freq** | ~−180° | **−194.8°** | Worse than C2 |
+| **Excess phase** | Minimal | ~14.8° | > 14.8° |
+| **Phase margin (open-loop)** | Positive | **~−14.8° (unstable)** | More negative |
+| **Frequency compensation needed?** | No | Yes (Miller cap) | Yes (strongly needed) |
+
+> The negative phase margin in Circuits 2 and 3 means they will oscillate if placed in a unity-gain feedback loop without frequency compensation.
+
+---
+
+## 6. DC Operating Point Comparison
+
+| Parameter | Circuit 1 | Circuit 2 | Circuit 3 |
+|---|---|---|---|
+| **V_out1 (DC)** | ≈ 0 V | ≈ 7.1 mV | ≈ 7.1 mV |
+| **V_out2 (DC)** | ≈ 0 V | ≈ 7.1 mV | ≈ 7.1 mV |
+| **V_od = V_out1 − V_out2** | 0 V | 0 V | 0 V |
+| **V_S (source node)** | −0.707 V | −0.695 V | −0.695 V |
+| **I_D1 = I_D2** | 0.5 mA | 0.5 mA | 0.5 mA |
+| **Symmetry** | ✓ Balanced | ✓ Balanced | ✓ Balanced |
+
+---
+
+## 7. Behaviour at Boundary Conditions
+
+### At V_CM(min)
+
+| Observation | All Circuits |
+|---|---|
+| **V_GS ≈ V_T** | Transistor barely ON |
+| **V_ov ≈ 0** | Transconductance g_m ≈ 0 |
+| **Output** | Flat — no amplification |
+| **Conclusion** | Amplifier non-functional at lower limit |
+
+### At V_CM(max)
+
+| Observation | All Circuits |
+|---|---|
+| **V_DS = V_ov** | At saturation–triode boundary |
+| **Gain** | Collapses as MOSFET enters triode |
+| **Output** | No amplification, waveform flat |
+| **Conclusion** | Amplifier non-functional at upper limit |
+
+---
+
+## 8. Overall Comparison Summary
+
+| Feature | Circuit 1 | Circuit 2 | Circuit 3 |
+|---|---|---|---|
+| **Load** | Resistive | Active (PMOS mirror) | Active + C_L |
+| **Power** | 1.8 mW | 1.8 mW | 1.8 mW |
+| **Gain (dB)** | Lower | 5.55 dB | 5.55 dB |
+| **CM input range** | 0.70 V | 1.37 V | 1.37 V |
+| **Bandwidth** | Wide | Narrow (~1–5 Hz) | Narrowest |
+| **Phase margin** | Stable | Unstable (−14.8°) | Worse |
+| **CMRR** | Moderate | High | High |
+| **Complexity** | Simple | Moderate | Moderate |
+| **Key advantage** | Wide BW, simple design | High gain, wide CM range | Drives capacitive loads |
+| **Key drawback** | Low gain, limited CM swing | Needs frequency compensation | Lowest BW |
+| **Best suited for** | General amplification | High-gain op-amp input stage | Capacitive load driving |
+
+---
+
+## 9. Key Formulas Reference
+
+| Formula | Expression |
+|---|---|
+| Differential gain | A_d = g_m · R_D (C1) or g_m · (r_o2 ‖ r_o4) (C2, C3) |
+| Transconductance | g_m = 2·I_D / V_ov |
+| Output resistance | r_o = 1 / (λ·I_D) |
+| CM input min | V_CM(min) = V_P + V_T |
+| CM input max (C1) | V_CM(max) = V_D + V_T |
+| CM input max (C2,C3) | V_CM(max) = VDD − V_ov(PMOS) + V_T(NMOS) |
+| Linear input condition | V_id < √2 · V_OV |
+| Dominant pole | f_H = 1 / (2π · r_out · C_L) |
+
+---
+
+*Experiment 4 — Differential Amplifier Analysis | LIC Lab*
+*VDD = 0.9 V | VSS = −0.9 V | L = 480 nm | I_SS = 1 mA | V_T = 0.366 V*
