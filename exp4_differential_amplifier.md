@@ -1523,10 +1523,6 @@ The circuit is moving toward **switching behavior**.
   - One MOSFET fully ON  
   - Other MOSFET OFF  
 
-This behavior is useful in:
-- Comparators  
-- Switching circuits
-
 
 
 
