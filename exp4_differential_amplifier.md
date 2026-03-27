@@ -1265,3 +1265,270 @@ At \( V_{CM(max)} \):
 
 ---
 
+
+
+
+
+
+# Experiment: Differential Amplifier – Large Signal Analysis (Case 1)
+
+## Aim
+To analyze the operation of a CMOS differential amplifier when  
+Vid < √2 Vov and verify current distribution using LTspice.
+<img width="933" height="653" alt="image" src="https://github.com/user-attachments/assets/c431acbe-c006-4b4d-8181-17c698b24d61" />
+
+---
+
+## Given Parameters
+
+| Parameter | Value |
+|----------|------|
+| Vg | 0 V |
+| Vs | -0.7 V |
+| Vt | 0.366 V |
+| Vin1 | 0.3 V |
+| Vin2 | 0.1 V |
+
+---
+
+## Theory
+
+A differential amplifier operates based on the difference between two input voltages:
+
+Vid = Vin1 - Vin2
+
+The operating region depends on:
+
+Vid compared with √2 Vov
+
+Where:
+
+Vov = Vgs - Vt
+
+---
+
+## Calculations
+
+### Gate-to-Source Voltage
+Vgs = Vg - Vs  
+Vgs = 0 - (-0.7) = 0.7 V
+
+### Overdrive Voltage
+Vov = Vgs - Vt  
+Vov = 0.7 - 0.366 = 0.334 V
+
+### Threshold Condition
+√2 Vov = 1.414 × 0.334 = 0.472 V
+
+### Differential Input
+Vid = Vin1 - Vin2  
+Vid = 0.3 - 0.1 = 0.2 V
+
+---
+
+## Condition Verification
+
+Vid = 0.2 V < 0.472 V  
+
+✔ Condition satisfied
+
+---
+
+## LTspice Results (Operating Point)
+
+| Quantity | Value |
+|---------|------|
+| Id(M1) | 0.0005067 A |
+| Id(M2) | 0.0004810 A |
+| Tail Current Id(M5) | 0.0009877 A |
+| Vout1 | -0.660 V |
+| Vout2 | -0.626 V |
+
+---
+<img width="1915" height="438" alt="image" src="https://github.com/user-attachments/assets/6d262478-d51d-471a-aab6-09713a9b81f0" />
+
+## Observation
+
+- Id(M1) ≈ Id(M2)  
+- Tail current is shared:  
+  Itail ≈ I1 + I2  
+- Both MOSFETs are ON  
+- No transistor is OFF  
+- We also get clean sine wave
+---
+
+## Working Principle
+
+When Vid < √2 Vov:
+
+- Both transistors operate in saturation  
+- Current divides between M1 and M2  
+- Output varies linearly with input  
+- Circuit behaves as a linear amplifier  
+
+---
+
+## Result
+
+The differential amplifier operates in the linear (small-signal) region for:
+
+Vid < √2 Vov
+
+Both transistors conduct simultaneously and share the tail current.
+
+---
+
+## Conclusion
+
+- The theoretical condition is verified using LTspice  
+- Current distribution confirms linear operation  
+- The circuit works as a proper differential amplifier  
+- Advantages of this region:
+  - High gain  
+  - Low distortion  
+  - Stable operation
+ 
+
+
+
+
+
+
+
+
+# Experiment: Differential Amplifier – Large Signal Analysis (Case 2)
+
+## Aim
+To analyze the operation of a CMOS differential amplifier when  
+Vid > Vov and study current steering behavior using LTspice.
+<img width="872" height="672" alt="image" src="https://github.com/user-attachments/assets/78e68d12-aeca-4304-9b45-d15c82545b36" />
+
+---
+
+## Given Parameters
+
+| Parameter | Value |
+|----------|------|
+| Vg | 0 V |
+| Vs | -0.7 V |
+| Vt | 0.366 V |
+| Vin1 | 0.7 V |
+| Vin2 | 0.2 V |
+
+---
+
+## Theory
+
+The operation of a differential amplifier depends on the input difference:
+
+Vid = Vin1 - Vin2
+
+For large input:
+
+- If Vid > Vov → nonlinear region begins  
+- If Vid > √2 Vov → one transistor turns OFF  
+
+Where:
+
+Vov = Vgs - Vt
+
+---
+
+## Calculations
+
+### Gate-to-Source Voltage
+Vgs = Vg - Vs  
+Vgs = 0 - (-0.7) = 0.7 V  
+
+### Overdrive Voltage
+Vov = Vgs - Vt  
+Vov = 0.7 - 0.366 = 0.334 V  
+
+### Differential Input
+Vid = Vin1 - Vin2  
+Vid = 0.7 - 0.2 = 0.5 V  
+
+---
+
+## Condition Verification
+
+Vov = 0.334 V  
+Vid = 0.5 V  
+
+✔ Vid > Vov (Large signal condition satisfied)
+
+Also:
+
+√2 Vov = 0.472 V  
+
+✔ Vid > √2 Vov  
+
+---
+
+## LTspice Results (Operating Point)
+
+| Quantity | Value |
+|---------|------|
+| Id(M1) | 0.000511 A |
+| Id(M2) | 0.000486 A |
+| Tail Current Id(M5) | 0.000997 A |
+| Vout1 | -0.666 V |
+| Vout2 | -0.633 V |
+
+---
+<img width="1907" height="463" alt="image" src="https://github.com/user-attachments/assets/b9088edd-8658-473a-bc5a-a8958090b160" />
+
+## Observation
+
+- Id(M1) > Id(M2)  
+- Current is shifting toward M1  
+- M2 current is reducing  
+- Tail current remains constant  
+
+---
+
+## Working Principle
+
+When Vid > Vov:
+
+- Differential pair enters **nonlinear region**
+- Current no longer splits equally
+- One transistor starts dominating
+- Output becomes **nonlinear**
+
+When Vid > √2 Vov:
+
+- One transistor carries almost full current
+- Other transistor approaches cutoff
+
+---
+
+## Result
+
+For Vid = 0.5 V:
+
+- Vid > Vov → nonlinear operation  
+- Vid > √2 Vov → current steering observed  
+
+The circuit is moving toward **switching behavior**.
+
+---
+
+## Conclusion
+
+- The amplifier leaves linear region for large input  
+- Current shifts toward one transistor  
+- Output becomes nonlinear  
+- At very high Vid:
+  - One MOSFET fully ON  
+  - Other MOSFET OFF  
+
+This behavior is useful in:
+- Comparators  
+- Switching circuits
+
+
+
+
+
+
