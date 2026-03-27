@@ -673,7 +673,126 @@ This is **undesired region**
 
 ---
 
+# Differential Amplifier — AC Analysis Report (Circuit 1)
+<img width="1907" height="465" alt="image" src="https://github.com/user-attachments/assets/32fcd694-83a3-4829-a934-433cda77b099" />
 
+## Aim
+To analyze the AC performance of a CMOS differential amplifier and determine gain, bandwidth, unity gain bandwidth (UGB), and gain-bandwidth product (GBP), and compare theoretical and practical results.
+
+---
+
+## Circuit Parameters
+- Supply Voltage: ±0.9 V  
+- Load Resistors: R1 = R2 = 1.8 kΩ  
+- Tail Current: 1 mA  
+- Input: Differential sinusoidal signal  
+
+---
+
+## Theoretical Analysis
+
+### 1. Drain Current
+Itail = 1 mA  
+
+ID = Itail / 2 = 0.5 mA  
+
+---
+
+### 2. Transconductance (gm)
+gm = 2ID / Vov  
+
+Assume:
+Vov ≈ 0.2 V  
+
+gm = (2 × 0.5 mA) / 0.2  
+gm = 5 mS  
+
+---
+
+### 3. Voltage Gain
+Av = gm × RD  
+
+Av = 5 mS × 1.8 kΩ  
+Av = 9 V/V  
+
+Av(dB) = 20 log(9) ≈ 19.08 dB  
+
+---
+
+### 4. Non-Ideal Gain
+Considering channel length modulation:
+
+Av = gm (RD || ro)
+
+This reduces gain compared to ideal value.
+
+---
+
+### 5. Bandwidth
+BW = 1 / (2π RD Cout)
+
+Assume:
+Cout ≈ 50 fF  
+
+BW ≈ 1 / (2π × 1.8k × 50fF)  
+BW ≈ 1.7 GHz  
+
+---
+
+### 6. Unity Gain Bandwidth (UGB)
+UGB = Av × BW  
+
+UGB ≈ 9 × 1.7 GHz  
+UGB ≈ 15.3 GHz  
+
+---
+
+### 7. Gain Bandwidth Product (GBP)
+GBP = Av × BW  
+
+GBP ≈ 15.3 GHz  
+
+---
+
+## Practical (LTspice) Results
+
+- Gain = 15.88 dB ≈ 6.23 V/V  
+- Bandwidth ≈ 1 GHz  
+- UGB ≈ 1.1 – 1.2 GHz  
+- GBP ≈ 6.23 GHz  
+
+---
+
+## Comparison
+
+| Parameter | Theoretical | Practical |
+|----------|------------|----------|
+| Gain (V/V) | 9 | 6.23 |
+| Gain (dB) | 19.08 dB | 15.88 dB |
+| Bandwidth | ~1.7 GHz | ~1 GHz |
+| UGB | ~15.3 GHz | ~1.1 GHz |
+| GBP | ~15.3 GHz | ~6.23 GHz |
+
+---
+
+## Inference
+
+- The theoretical gain is higher because it assumes ideal conditions (infinite ro, no parasitics).
+- The practical gain is lower due to:
+  - Channel length modulation
+  - Finite output resistance
+  - Parasitic capacitances
+- Bandwidth is slightly lower in simulation due to internal capacitances.
+- The circuit shows a clear gain-bandwidth trade-off.
+- High bandwidth (~GHz) indicates suitability for high-frequency applications.
+
+---
+
+## Conclusion
+
+The CMOS differential amplifier provides moderate gain with high bandwidth.  
+The simulation results closely follow theoretical predictions with expected deviations due to non-ideal effects.  
+The design demonstrates stable operation and is suitable for high-speed analog circuits.
 
 
 
